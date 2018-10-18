@@ -1,3 +1,21 @@
+# Writeup
+
+__Describe the effect each of the P, I, D components had in your implementation.__
+
+Proportial "P" (as the name suggests) compensates for the current error by providing negative feedback directly proportional to the current error only.
+
+Proportional Control only cares about the current error and does not take into account the error at previous steps, so this results in oscillations about the reference trajectory. Using only the P controller we see that the vehicle oscillates and eventually jumps out of the track at turns in the [video](./vids/Pcontroller.mov)
+
+Derivative "D" compensates for the change in error by providing negative feedback that is proportioal to the different in error from the previous step and the current step.
+
+Derivative controller accounts for the change in error from the previous step. This way the controller has an understanding of how the error has been changing. As the current trajectory reaches the reference trajectory, the difference in error diminishes, and so does the effect of differential control. This leads to a steady state error, where the current trajectory ends up being "close to" the reference trajectory but doesn't converge. We can see the effect of Differential control in the [video](./vids/PD.mov) where the oscillations have decreased from P controller, but the vehicle is off center.
+
+Integral "I" compensates for the total accumulated error over last steps by providing negative feedback proportional to the total error accumulated by the system so far. This helps reduce the steady state error. We see the effect of Integral control in the PID controller [video](./vids/final_params.mov)
+
+__Describe how the final hyperparameters were chosen.__
+The final parameters were chosen by hand-tuning. I modified `main.cpp` to accept command line arguments to I could avoide running `make` every time one of the parameters was tuned. This way I iteratively determined the final parameters. This is the first submission to pass the rubric. They can be tuned further by implementing twiddle, which I am going to attempt in the future. The PID controller could be used for throttle as well.
+
+
 # CarND-Controls-PID
 Self-Driving Car Engineer Nanodegree Program
 
